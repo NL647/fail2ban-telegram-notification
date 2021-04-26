@@ -36,6 +36,18 @@ Send notification to telegram when fail2ban ban an IP address and unband an IP a
    iptables[name=SSH, port=22, protocol=tcp]  
    telegram 
    
+   =============================================================
+   # To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+# normal (default), ddos, extra or aggressive (combines all).
+# See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+#mode   = normal
+port    = 1123
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+action = iptables-allports
+         telegram
+================================================================         
+   
  - Make script directory to place our shell script  
  `sudo mkdir /etc/fail2ban/scripts/`  
  in the following directory add `fail2ban-telegram.sh`  
